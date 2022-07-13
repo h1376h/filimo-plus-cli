@@ -29,6 +29,7 @@ jobs:
     - run: npm link
     - run: echo "${{ secrets.TOKEN }}" >> token
     - run: printf '1\n' | filimo-plus-cli ${{ github.event.inputs.id }}
+    - run: ffmpeg -i "./movie/${{ github.event.inputs.id }}/360p/${{ github.event.inputs.id }}.mp4" -i "./movie/${{ github.event.inputs.id }}/360p/${{ github.event.inputs.id }}.srt" -map 0:0 -map 0:1 -map 1:0 -c:v copy -c:a copy -c:s mov_text with_sub.mp4
     - run: ls
     - uses: appleboy/telegram-action@master
       with:
@@ -40,8 +41,8 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: Video
-        document: './movie/${{ github.event.inputs.id }}/360p/with_sub.mp4'
+        message: With Sub
+        document: './with_sub.mp4'
     - uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_TO }}
