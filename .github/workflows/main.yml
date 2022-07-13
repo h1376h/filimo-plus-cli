@@ -173,3 +173,17 @@ jobs:
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: 17
         document: '${{ github.event.inputs.id }}17'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.srt') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: Subtitle
+        document: './movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.srt'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}_en.srt') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: Subtitle - EN
+        document: './movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}_en.srt'
