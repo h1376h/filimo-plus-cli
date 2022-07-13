@@ -40,6 +40,7 @@ jobs:
     - run: echo "${{ secrets.TOKEN }}" >> token
     - run: printf '${{ github.event.inputs.resulation-id }}\n' | filimo-plus-cli ${{ github.event.inputs.id }}
     - run: ffmpeg -i "./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.mp4" -i "./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.srt" -i "./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}_en.srt" -map 0 -map 1:0 -map 2:0 -c:v copy -c:a copy -c:s mov_text ${{ github.event.inputs.id }}_sub.mp4
+      if: ${{ hashFiles('./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.srt') != '' && hashFiles('./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}_en.srt') != '' }}
     - run: ls
     - uses: appleboy/telegram-action@master
       with:
@@ -48,18 +49,21 @@ jobs:
         message: Video
         document: './movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.mp4'
     - uses: appleboy/telegram-action@master
+      if: hashFiles('./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}_sub.mp4') != ''
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: With Sub
         document: './${{ github.event.inputs.id }}_sub.mp4'
     - uses: appleboy/telegram-action@master
+      if: hashFiles('./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.srt') != ''
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: Subtitle
         document: './movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.srt'
     - uses: appleboy/telegram-action@master
+      if: hashFiles('./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}_en.srt') != ''
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
