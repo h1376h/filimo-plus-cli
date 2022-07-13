@@ -8,6 +8,8 @@ logFile="$3"
 videoStream="$4"
 audioStream="$5"
 audioStream2="$6"
+subtitle="$7"
+subtitle2="$8"
 
 if [ -n "$audioStream2" ]
 then
