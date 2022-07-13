@@ -82,7 +82,7 @@ export class DownloadService {
     return join(this.downloadDir(id), `${id}.mp4`);
   }
 
-  async start(download: IDownload, video: string, audio: IDownloadTrack[]): Promise<ChildProcess> {
+  async start(download: IDownload, video: string): Promise<ChildProcess> {
     // Create movie dir
     if (!existsSync(this.movieDir())) mkdirSync(this.movieDir());
 
@@ -111,7 +111,7 @@ export class DownloadService {
     const headers: string = `User-Agent: ${this.authService.getUserAgent()}; Cookie: AuthV1=${this.authService.getToken()};`;
     const itemFile: string = this.itemFile(download.id);
     const logFile: string = this.logFile(download.id);
-    const dlCommand: string = `${dlScript} "${headers}" "${itemFile}" "${logFile}" "${video}" "${audio[0]?.link ? audio[0]?.link : ''}" "${audio[1]?.link ? audio[1]?.link : ''}"`;
+    const dlCommand: string = `${dlScript} "${headers}" "${itemFile}" "${logFile}" "${video}" "${download.tracks[0]?.link ? download.tracks[0]?.link : ''}" "${download.tracks[1]?.link ? download.tracks[1]?.link : ''}" "${download.subtitles[0] ? this.subtitleFile(download.id, download.subtitles[0].language) : ''}" "${download.subtitles[1] ? this.subtitleFile(download.id, download.subtitles[1].language) : ''}"`;
 
     // Start download process
     return exec(dlCommand);

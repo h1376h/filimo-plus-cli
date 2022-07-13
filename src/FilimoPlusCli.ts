@@ -125,18 +125,12 @@ class FilimoPlusCli {
       });
     }
 
-    let track: IDownloadTrack[] = [];
-    const trackOptions: string[] = download.tracks.map((item) => item.language.toUpperCase());
-    for (let i = 0 ; i < download.tracks.length ; i++) {
-      track.push(download.tracks[i]);
-    }
-
     for (let i = 0 ; i < variants.length ; i++) {
       const variant: IDownloadVariant = variants[i];
       const downloadService: DownloadService = new DownloadService(authService, clientService, variant.quality, this.absolutePath);
       console.log(`[${variant.quality}]`);
       try {
-        await downloadService.start(download, variant.link, track);
+        await downloadService.start(download, variant.link);
         console.log('Downloading:');
         await this.watch(downloadService, download.id);
       } catch (exception) {
