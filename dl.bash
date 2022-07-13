@@ -23,8 +23,8 @@ fi
 
 if [ -n "$subtitle2" ]
 then
-  ffmpeg -i "$itemFile" -f srt -i "$subtitle2" -map 0:0 -map 0:1 -map 1:0 -c:v copy -c:a copy -c:s mov_text "$itemFile"
+  ffmpeg -i "$itemFile" -i "$subtitle2" -map 0:0 -map 0:1 -map 1:0 -c:v copy -c:a copy -c:s mov_text with_sub.mp4
 elif [ -n "$subtitle" ]
 then
-  ffmpeg -i "$itemFile" -f srt -i "$subtitle" -map 0:0 -map 0:1 -map 1:0 -c:v copy -c:a copy -c:s mov_text "$itemFile"
+  ffmpeg -i "$itemFile" -i "$subtitle2" -map 0:0 -map 0:1 -map 1:0 -c:v copy -c:a copy -c:s mov_text with_sub.mp4
 fi
