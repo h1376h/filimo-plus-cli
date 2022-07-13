@@ -13,6 +13,16 @@ on:
         required: true
         default: "123da"
         type: string
+      resulation:
+        description: "Resulation"
+        required: true
+        default: "360p"
+        type: string
+      resulation-id:
+        description: "Resulation ID"
+        required: true
+        default: "1"
+        type: string
 
 jobs:
   build:
@@ -28,15 +38,15 @@ jobs:
     - run: npm run build:linux
     - run: npm link
     - run: echo "${{ secrets.TOKEN }}" >> token
-    - run: printf '1\n' | filimo-plus-cli ${{ github.event.inputs.id }}
-    - run: ffmpeg -i "./movie/${{ github.event.inputs.id }}/360p/${{ github.event.inputs.id }}.mp4" -i "./movie/${{ github.event.inputs.id }}/360p/${{ github.event.inputs.id }}.srt" -map 0:0 -map 0:1 -map 1:0 -c:v copy -c:a copy -c:s mov_text with_sub.mp4
+    - run: printf '${{ github.event.inputs.resulation-id }}\n' | filimo-plus-cli ${{ github.event.inputs.id }}
+    - run: ffmpeg -i "./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.mp4" -i "./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.srt" -map 0:0 -map 0:1 -map 1:0 -c:v copy -c:a copy -c:s mov_text with_sub.mp4
     - run: ls
     - uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: Video
-        document: './movie/${{ github.event.inputs.id }}/360p/${{ github.event.inputs.id }}.mp4'
+        document: './movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.mp4'
     - uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_TO }}
@@ -48,10 +58,10 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: Subtitle
-        document: './movie/${{ github.event.inputs.id }}/360p/${{ github.event.inputs.id }}.srt'
+        document: './movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.srt'
     - uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: Subtitle - EN
-        document: './movie/${{ github.event.inputs.id }}/360p/${{ github.event.inputs.id }}_en.srt'
+        document: './movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}_en.srt'
