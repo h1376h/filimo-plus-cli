@@ -17,9 +17,9 @@ then
 	then
 	  if [ -n "$subtitle2" ]
 	  then
-	    ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$audioStream2" -i "$subtitle" -i "$subtitle2" -map 0:v -map 1:a -map 2:a -map 3:s -map 4:s -codec copy -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
+	    ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$audioStream2" -i "$subtitle" -i "$subtitle2" -map 0:v -map 1:a -map 2:a -map 3:s -map 4:s -codec copy -c:s mov_text -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
 	  else
-	    ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$audioStream2" -i "$subtitle" -map 0:v -map 1:a -map 2:a -map 3:s -codec copy -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
+	    ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$audioStream2" -i "$subtitle" -map 0:v -map 1:a -map 2:a -map 3:s -codec copy -c:s mov_text -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
 	  fi
 	else
 	  ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$audioStream2" -map 0:v -map 1:a -map 2:a -codec copy -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
@@ -28,9 +28,9 @@ then
   then
 	if [ -n "$subtitle2" ]
 	then
-	  ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$subtitle" -i "$subtitle2" -map 0:v -map 1:a -map 3:s -map 4:s -codec copy -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
+	  ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$subtitle" -i "$subtitle2" -map 0:v -map 1:a -map 3:s -map 4:s -codec copy -c:s mov_text -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
 	else
-	  ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$subtitle" -map 0:v -map 1:a -map 3:s -codec copy -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
+	  ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$subtitle" -map 0:v -map 1:a -map 3:s -codec copy -c:s mov_text -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
 	fi
   else
 	ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -map 0:v -map 1:a -codec copy -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
