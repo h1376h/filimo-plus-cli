@@ -40,6 +40,12 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: Video
+        document: './movie/${{ github.event.inputs.id }}/360p/with_sub.mp4'
+    - uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
         message: Subtitle
         document: './movie/${{ github.event.inputs.id }}/360p/${{ github.event.inputs.id }}.srt'
     - uses: appleboy/telegram-action@master
