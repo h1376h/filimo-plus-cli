@@ -44,30 +44,132 @@ jobs:
     - run: ls
     - run: split -d -b 49m './movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.mp4' ${{ github.event.inputs.id }}
     - run: ls
-    - uses: appleboy/telegram-action@master
-      with:
-        to: ${{ secrets.TELEGRAM_TO }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: Video
-        document: './movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.mp4'
-    - uses: appleboy/telegram-action@master
-      if: hashFiles('./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}_sub.mp4') != ''
-      with:
-        to: ${{ secrets.TELEGRAM_TO }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: With Sub
-        document: './${{ github.event.inputs.id }}_sub.mp4'
-    - uses: appleboy/telegram-action@master
       if: hashFiles('./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.srt') != ''
-      with:
-        to: ${{ secrets.TELEGRAM_TO }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: Subtitle
-        document: './movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.srt'
+    - run: ls
+      if: hashFiles('./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.srt') == ''
     - uses: appleboy/telegram-action@master
-      if: hashFiles('./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}_en.srt') != ''
+      if: hashFiles('${{ github.event.inputs.id }}00') != ''
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: Subtitle - EN
-        document: './movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}_en.srt'
+        message: 00
+        document: '${{ github.event.inputs.id }}00'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}01') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 01
+        document: '${{ github.event.inputs.id }}01'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}02') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 02
+        document: '${{ github.event.inputs.id }}02'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}03') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 03
+        document: '${{ github.event.inputs.id }}03'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}04') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 04
+        document: '${{ github.event.inputs.id }}04'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}05') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 05
+        document: '${{ github.event.inputs.id }}05'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}06') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 06
+        document: '${{ github.event.inputs.id }}06'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}07') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 07
+        document: '${{ github.event.inputs.id }}07'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}08') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 08
+        document: '${{ github.event.inputs.id }}08'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}09') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 09
+        document: '${{ github.event.inputs.id }}09'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}10') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 10
+        document: '${{ github.event.inputs.id }}10'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}11') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 11
+        document: '${{ github.event.inputs.id }}11'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}12') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 12
+        document: '${{ github.event.inputs.id }}12'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}13') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 13
+        document: '${{ github.event.inputs.id }}13'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}14') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 14
+        document: '${{ github.event.inputs.id }}14'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}15') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 15
+        document: '${{ github.event.inputs.id }}15'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}16') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 16
+        document: '${{ github.event.inputs.id }}16'
+    - uses: appleboy/telegram-action@master
+      if: hashFiles('${{ github.event.inputs.id }}17') != ''
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: 17
+        document: '${{ github.event.inputs.id }}17'
