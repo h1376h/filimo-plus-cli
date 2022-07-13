@@ -9,32 +9,20 @@ videoStream="$4"
 audioStream="$5"
 audioStream2="$6"
 
-if [ -n "$audioStream" ]
+if [ -n "$audioStream2" ]
 then
-  if [ -n "$audioStream2" ]
-  then
-    if [ -n "$subtitle" ]
-	then
-	  if [ -n "$subtitle2" ]
-	  then
-	    ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$audioStream2" -i "$subtitle" -i "$subtitle2" -map 0:v -map 1:a -map 2:a -map 3:s -map 4:s -codec copy -c:s mov_text -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
-	  else
-	    ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$audioStream2" -i "$subtitle" -map 0:v -map 1:a -map 2:a -map 3:s -codec copy -c:s mov_text -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
-	  fi
-	else
-	  ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$audioStream2" -map 0:v -map 1:a -map 2:a -codec copy -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
-	fi
-  elif [ -n "$subtitle" ]
-  then
-	if [ -n "$subtitle2" ]
-	then
-	  ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$subtitle" -i "$subtitle2" -map 0:v -map 1:a -map 3:s -map 4:s -codec copy -c:s mov_text -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
-	else
-	  ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$subtitle" -map 0:v -map 1:a -map 3:s -codec copy -c:s mov_text -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
-	fi
-  else
-	ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -map 0:v -map 1:a -codec copy -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
-  fi
+  ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -i "$audioStream2" -map 0:v -map 1:a -map 2:a -codec copy -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
+elif [ -n "$audioStream" ]
+then
+  ffmpeg -headers "$headers" -i "$videoStream" -i "$audioStream" -map 0:v -map 1:a -codec copy -shortest -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
 else
   ffmpeg -headers "$headers" -i "$videoStream" -codec copy -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
+fi
+
+if [ -n "$subtitle2" ]
+then
+  ffmpeg -i "$itemFile" -f srt -i "$subtitle2" -map 0:0 -map 0:1 -map 1:0 -c:v copy -c:a copy -c:s mov_text "$itemFile"
+elif [ -n "$subtitle" ]
+then
+  ffmpeg -i "$itemFile" -f srt -i "$subtitle" -map 0:0 -map 0:1 -map 1:0 -c:v copy -c:a copy -c:s mov_text "$itemFile"
 fi
