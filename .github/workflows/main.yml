@@ -39,7 +39,7 @@ jobs:
     - run: npm link
     - run: echo "${{ secrets.TOKEN }}" >> token
     - run: printf '${{ github.event.inputs.resulation-id }}\n' | filimo-plus-cli ${{ github.event.inputs.id }}
-    - run: ffmpeg -i "./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.mp4" -i "./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.srt" -map 0:0 -map 0:1 -map 1:0 -c:v copy -c:a copy -c:s mov_text ${{ github.event.inputs.id }}_sub.mp4
+    - run: ffmpeg -i "./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.mp4" -i "./movie/${{ github.event.inputs.id }}/${{ github.event.inputs.resulation }}/${{ github.event.inputs.id }}.srt" -map 0 -map 1:0 -c:v copy -c:a copy -c:s mov_text ${{ github.event.inputs.id }}_sub.mp4
     - run: ls
     - uses: appleboy/telegram-action@master
       with:
