@@ -21,8 +21,6 @@ else
   ffmpeg -headers "$headers" -i "$videoStream" -codec copy -y "$itemFile" </dev/null >/dev/null 2> "$logFile" &
 fi
 
-ls
-
 if [ -n "$subtitle2" ]
 then
   ffmpeg -i "$itemFile" -i "$subtitle2" -map 0:0 -map 0:1 -map 1:0 -c:v copy -c:a copy -c:s mov_text with_sub.mp4
@@ -30,7 +28,3 @@ elif [ -n "$subtitle" ]
 then
   ffmpeg -i "$itemFile" -i "$subtitle" -map 0:0 -map 0:1 -map 1:0 -c:v copy -c:a copy -c:s mov_text with_sub.mp4
 fi
-
-echo "$itemFile"
-
-ls
